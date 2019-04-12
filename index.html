@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mikit!</title>
+<style>
+* {
+  font-family: sans-serif;
+}
+body {
+  background: #000;
+}
+#mics {
+  display: flex;
+}
+.mic {
+  display: block;
+  flex: 1 1;
+  color: #fff;
+  background: #f00;
+  border: 2px solid #fff;
+  font-size: 6em;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0.2;
+}
+.mic.on {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<div id="mics"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
+<script>
+var socket = io();
+socket.on('msg', function(msg) {
+  update(msg);
+});
+var mics = document.getElementById('mics');
+function update(msg) {
+  console.log(msg);
+  var n = msg.mic;
+  var mic = document.querySelector('.mic[data-n="'+n+'"]');
+  if(!mic) {
+    var mic = document.createElement('div');
+    mic.dataset.n = n;
+    mic.style = 'flex-order: '+n;
+    mic.className = 'mic';
+    mic.innerHTML = n;
+    mics.appendChild(mic);
+  }
+  if(msg.state) mic.classList.add('on');
+  else mic.classList.remove('on');
+}
+</script>
+</body>
+</html>

@@ -30,14 +30,14 @@ for(var i = 0; i < mics.length; i++) {
 input.on('cc', (msg) => {
   for(var i = 0; i < mics.length; i++) {
     if(mics[i] == msg.controller) {
-      state[i] = msg.value>0;
+      state[i+1] = msg.value>0;
       bcast(i+1, msg.value>0);
     }
   }
 })
 
 var bcast = (n, state) => {
-  io.emit('msg', { mic: n, state: state });
+  io.emit('msg', { mic: 1*n, state: state });
 }
 
 express.get('/', (req, res) => {

@@ -8,6 +8,7 @@
 }
 body {
   background: #000;
+  color: white;
 }
 #mics {
   display: flex;
@@ -32,7 +33,7 @@ body {
 <div id="mics"></div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js"></script>
 <script>
-var socket = io();
+var socket = io('', { path: '/mikit/socket.io/' } );
 socket.on('msg', function(msg) {
   update(msg);
 });

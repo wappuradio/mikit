@@ -26,7 +26,7 @@ ql.on('connect', function(connection) {
     connection.on('message', function(message) {
         const packet = JSON.parse(message.utf8Data);
         const {channel, state} = packet;
-        if (state !== null) {
+        if (state !== null && channel < N_MICS) {
             mics[channel+1] = state;
             bcast(channel+1, state);
         }

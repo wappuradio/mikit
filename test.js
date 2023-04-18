@@ -52,6 +52,14 @@ input.on('cc', (msg) => {
   }
 })
 
+input.on('noteon', (msg) => {
+  console.log("on", msg);
+})
+
+input.on('noteoff', (msg) => {
+  console.log("off", msg);
+})
+
 var bcast = (n, state) => {
   io.emit('msg', { mic: 1*n, state: state });
 }
@@ -67,4 +75,4 @@ io.on('connection', (socket) => {
   }
 });
 
-http.listen(1337);
+//http.listen(1337);

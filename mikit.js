@@ -24,12 +24,14 @@ ql.on('connect', function(connection) {
         process.exit(1);
     });
     connection.on('message', function(message) {
+      if (message.utf8Data) {
         const packet = JSON.parse(message.utf8Data);
         const {channel, state} = packet;
         if (state !== null && channel < N_MICS) {
-            mics[channel+1] = state;
-            bcast(channel+1, state);
+          mics[channel+1] = state;
+          bcast(channel+1, state);
         }
+      }
     });
 });
 ql.connect('ws://qltools.idm.wappuradio.fi:8083/', 'ql-json1');
